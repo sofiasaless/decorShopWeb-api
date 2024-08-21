@@ -1,5 +1,7 @@
 package com.decor_shop_web.shopWeb.service;
 
+import com.decor_shop_web.shopWeb.dto.ProductDTO;
+import com.decor_shop_web.shopWeb.dto.ProductMapper;
 import com.decor_shop_web.shopWeb.model.Product;
 import com.decor_shop_web.shopWeb.repository.ProductRepository;
 import lombok.RequiredArgsConstructor;
@@ -25,16 +27,16 @@ public class ProductService {
         return productRepository.findByName(name);
     }
 
-    public Product save(Product product) {
-        return productRepository.save(product);
+    public Product save(ProductDTO productDto) {
+        return productRepository.save(ProductMapper.INSTANCE.toProduct(productDto));
     }
 
     public void delete(Long id) {
         productRepository.deleteById(id);
     }
 
-    public Product replace(Product product) {
-        return productRepository.save(product);
+    public Product replace(Product productDtO) {
+        return productRepository.save(productDtO);
     }
 
 }

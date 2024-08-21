@@ -1,5 +1,6 @@
 package com.decor_shop_web.shopWeb.controller;
 
+import com.decor_shop_web.shopWeb.dto.ProductDTO;
 import com.decor_shop_web.shopWeb.model.Product;
 import com.decor_shop_web.shopWeb.service.ProductService;
 import lombok.RequiredArgsConstructor;
@@ -10,7 +11,7 @@ import org.springframework.web.bind.annotation.*;
 import java.util.List;
 
 @RestController
-@RequestMapping("decorations")
+@RequestMapping("decor")
 @RequiredArgsConstructor
 public class ProductController {
 
@@ -38,7 +39,7 @@ public class ProductController {
     }
 
     @PostMapping(path = "/save")
-    public ResponseEntity<Product> saveProduct(@RequestBody Product product){
+    public ResponseEntity<Product> saveProduct(@RequestBody ProductDTO product){
         return new ResponseEntity<>(productService.save(product), HttpStatus.CREATED);
     }
 
