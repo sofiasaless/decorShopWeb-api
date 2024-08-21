@@ -2,6 +2,7 @@ package com.decor_shop_web.shopWeb.service;
 
 import com.decor_shop_web.shopWeb.dto.ProductDTO;
 import com.decor_shop_web.shopWeb.dto.ProductMapper;
+import com.decor_shop_web.shopWeb.exceptions.BadRequestException;
 import com.decor_shop_web.shopWeb.model.Product;
 import com.decor_shop_web.shopWeb.repository.ProductRepository;
 import lombok.RequiredArgsConstructor;
@@ -21,6 +22,12 @@ public class ProductService {
 
     public Product findById(Long id) {
         return productRepository.findById(id).orElse(null);
+    }
+
+    public Product findByIdOrThrowBadRequestException(Long id) {
+        return productRepository.findById(id).orElseThrow(
+                () -> new BadRequestException("Product not found")
+        );
     }
 
     public List<Product> findByName(String name) {
