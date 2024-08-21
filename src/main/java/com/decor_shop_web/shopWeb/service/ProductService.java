@@ -35,8 +35,8 @@ public class ProductService {
         productRepository.deleteById(id);
     }
 
-    public Product replace(Product productDtO) {
-        return productRepository.save(productDtO);
+    public Product replace(ProductDTO productDto) {
+        return productRepository.save(ProductMapper.INSTANCE.toProduct(productDto));
     }
 
 }
