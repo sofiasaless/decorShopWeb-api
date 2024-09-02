@@ -24,21 +24,32 @@ public class MyUserDetailsService implements UserDetailsService {
         Optional<MyUser> user = myUserRepository.findByUsername(username);
 
         if (user.isPresent()) {
-            var myUser = user.get();
-            return User.builder()
-                    .username(myUser.getUsername())
-                    .password(myUser.getPassword())
-                    .roles(getRoles(myUser))
-            .build();
+            return user.get();
         } else {
             throw new UsernameNotFoundException(username);
         }
     }
 
-    private String[] getRoles(MyUser myUser) {
-        if (myUser.getRole() == null) {
-            return new String[]{"USER"};
-        }
-        return myUser.getRole().split(",");
-    }
+//    @Override
+//    public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
+//        Optional<MyUser> user = myUserRepository.findByUsername(username);
+//
+//        if (user.isPresent()) {
+//            var myUser = user.get();
+//            return User.builder()
+//                    .username(myUser.getUsername())
+//                    .password(myUser.getPassword())
+//                    .roles(getRoles(myUser))
+//            .build();
+//        } else {
+//            throw new UsernameNotFoundException(username);
+//        }
+//    }
+//
+//    private String[] getRoles(MyUser myUser) {
+//        if (myUser.getRole() == null) {
+//            return new String[]{"USER"};
+//        }
+//        return myUser.getRole().split(",");
+//    }
 }
