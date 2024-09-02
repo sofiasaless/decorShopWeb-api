@@ -2,6 +2,7 @@ package com.decor_shop_web.shopWeb.controller;
 
 import com.decor_shop_web.shopWeb.dto.MyUserDTO;
 import com.decor_shop_web.shopWeb.dto.MyUserMapper;
+import com.decor_shop_web.shopWeb.dto.TokenResponse;
 import com.decor_shop_web.shopWeb.infra.TokenService;
 import com.decor_shop_web.shopWeb.model.MyUser;
 import com.decor_shop_web.shopWeb.repository.MyUserRepository;
@@ -36,7 +37,7 @@ public class AuthenticationController {
         // returning token
         var token = tokenService.generateToken((MyUser) auth.getPrincipal());
 
-        return ResponseEntity.ok(token);
+        return ResponseEntity.ok(new TokenResponse(token));
     }
 
     @PostMapping("/register")
