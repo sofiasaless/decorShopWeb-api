@@ -40,9 +40,10 @@ public class SecurityConfiguration {
                 // requests and them permissions
                 .authorizeHttpRequests(auth -> auth
                         .requestMatchers(HttpMethod.POST, "/auth/login").permitAll()
-                        .requestMatchers(HttpMethod.POST, "/auth/register").permitAll()
-                        .requestMatchers("/decor/list").hasRole("ADMIN")
-                        .requestMatchers(HttpMethod.POST, "/decor/save").hasRole("ADMIN")
+                        .requestMatchers(HttpMethod.POST, "/auth/register").hasRole("ADMIN")
+                        .requestMatchers(HttpMethod.GET, "/decor/**").permitAll()
+                        .requestMatchers(HttpMethod.POST, "/decor/**").hasRole("ADMIN")
+                        .requestMatchers(HttpMethod.DELETE, "/decor/**").hasRole("ADMIN")
                     .anyRequest().authenticated()
                 )
                 .addFilterBefore(securityFilter, UsernamePasswordAuthenticationFilter.class)
