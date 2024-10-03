@@ -9,10 +9,15 @@ import com.decor_shop_web.shopWeb.repository.MyUserRepository;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
+
+import org.springframework.http.HttpStatus;
+import org.springframework.http.HttpStatusCode;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
+import org.springframework.web.bind.annotation.CrossOrigin;
+import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -21,6 +26,7 @@ import org.springframework.web.bind.annotation.RestController;
 @RestController
 @RequestMapping("auth")
 @RequiredArgsConstructor
+@CrossOrigin(origins = "*", allowedHeaders = "*")
 public class AuthenticationController {
 
     private final AuthenticationManager authenticationManager;
@@ -47,6 +53,12 @@ public class AuthenticationController {
         myUserRepository.save(MyUserMapper.INSTANCE.toMyUser(myUserDTO));
 
         return ResponseEntity.ok().build();
+    }
+
+    // endpoint para verificar se o usuário é autênticado
+    @GetMapping("/authorize")
+    public ResponseEntity auth(){
+        return new ResponseEntity<>(HttpStatus.OK);
     }
 
 }
