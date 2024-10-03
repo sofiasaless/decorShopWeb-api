@@ -40,7 +40,7 @@ public class SecurityConfiguration {
                 // requests and them permissions
                 .authorizeHttpRequests(auth -> auth
                         .requestMatchers(HttpMethod.POST, "/auth/login").permitAll()
-                        .requestMatchers(HttpMethod.POST, "/auth/register").hasRole("ADMIN")
+                        .requestMatchers(HttpMethod.POST, "/auth/authorize").hasRole("ADMIN")
                         .requestMatchers(HttpMethod.GET, "/decor/**").permitAll()
                         .requestMatchers(HttpMethod.POST, "/decor/**").hasRole("ADMIN")
                         .requestMatchers(HttpMethod.DELETE, "/decor/**").hasRole("ADMIN")
@@ -48,7 +48,7 @@ public class SecurityConfiguration {
                 )
                 .addFilterBefore(securityFilter, UsernamePasswordAuthenticationFilter.class)
                 .logout(logout -> logout
-                        .logoutUrl("/auth/logout")  // defines logout url
+                        .logoutUrl("/auth/logout").permitAll()  // defines logout url
                         .logoutSuccessHandler((request, response, authentication) -> {
                             response.setStatus(HttpServletResponse.SC_OK);
                             response.getWriter().flush();
