@@ -11,6 +11,8 @@ import lombok.NoArgsConstructor;
 @NoArgsConstructor
 public class ProductDTO {
 
+    private Long id;
+
     @NotEmpty(message = "Nome não pode ser vazio")
     @NotNull(message = "Nome não pode ser nulo")
     private String name;
